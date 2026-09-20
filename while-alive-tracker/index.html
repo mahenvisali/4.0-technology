@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>while(alive) Tracker - ACHRONOS</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#0a1931;color:#fff;font-family:'Courier New',monospace;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.card{background:#13294b;padding:35px;border-radius:20px;width:100%;max-width:380px;box-shadow:0 0 30px rgba(107,255,138,0.3);border:1px solid #1e3a5f}
+h1{color:#ff6b9d;font-size:28px;margin-bottom:5px} h1 span{color:#6bff8a}
+.sub{color:#8899aa;font-size:12px;margin-bottom:20px;letter-spacing:1px}
+.row{display:flex;justify-content:space-between;align-items:center;margin:12px 0;background:#0a1931;padding:12px;border-radius:10px}
+.row label{font-size:14px} 
+.row input{width:70px;padding:8px;border-radius:6px;border:2px solid #6bff8a;background:#13294b;color:#fff;text-align:center;font-weight:bold;font-size:16px}
+button{width:100%;padding:14px;margin-top:20px;background:linear-gradient(90deg,#6bff8a,#00d4ff);color:#0a1931;border:none;border-radius:10px;font-weight:bold;font-size:16px;cursor:pointer;transition:0.3s}
+button:hover{transform:scale(1.02);box-shadow:0 0 20px #6bff8a}
+#output{margin-top:20px;background:#0a1931;padding:15px;border-radius:10px;border-left:4px solid #ff6b9d;min-height:70px;font-size:13px;line-height:1.6}
+.footer{margin-top:20px;text-align:center;font-size:11px;color:#5a7090}
+.footer span{color:#6bff8a}
+</style>
+</head>
+<body>
+<div class="card">
+<h1>while<span>(alive)</span> {</h1>
+<div class="sub">ACHRONOS // BEYOND TIME</div>
+
+<div class="row"><label>🍔 eat()</label><input type="number" id="eat" value="2" min="0" max="24"></div>
+<div class="row"><label>😴 sleep()</label><input type="number" id="sleep" value="7" min="0" max="24"></div>
+<div class="row"><label>💻 code()</label><input type="number" id="code" value="6" min="0" max="24"></div>
+
+<button onclick="runLoop()">▶ Run Loop</button>
+<div id="output">Click Run to start your day 🚀</div>
+<h1>}</h1>
+<div class="footer">Streak: <span id="streak">0</span> days | Built with Vanilla JS</div>
+</div>
+
+<script>
+let alive = true;
+let day = parseInt(localStorage.getItem('streak')||0);
+document.getElementById('streak').textContent=day;
+function runLoop(){
+ const e=parseFloat(document.getElementById('eat').value)||0;
+ const s=parseFloat(document.getElementById('sleep').value)||0;
+ const c=parseFloat(document.getElementById('code').value)||0;
+ let log="";
+ let i=0;
+ while(alive && i<1){
+   if(c>=6) log+=`✅ Beast mode! ${c}h coded today<br>`;
+   else if(c>=4) log+=`✅ Good! ${c}h coded. Keep shipping!<br>`;
+   else log+=`⚠️ Only ${c}h code? Add 1h more!<br>`;
+   if(s<6) log+=`😴 Sleep kammi da! ${s}h only<br>`;
+   else log+=`😴 Recovery done: ${s}h<br>`;
+   log+=`🔥 Total: ${e+s+c}h balanced<br>`;
+   i++;
+ }
+ day++; localStorage.setItem('streak',day);
+ document.getElementById('streak').textContent=day;
+ document.getElementById('output').innerHTML=log;
+}
+</script>
+</body>
+</html>
